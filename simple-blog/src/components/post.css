@@ -1,0 +1,14 @@
+.post {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0.5em;
+    font-size: 1.5em;
+    border-radius: 0.3em;
+    background-color: rgb(243, 243, 243);
+    font-family: 'Courier New', Courier, monospace;
+    padding: 0.4em;
+    text-align: left;
+    padding-left: 1em;
+    padding-right: 1em;
+}
