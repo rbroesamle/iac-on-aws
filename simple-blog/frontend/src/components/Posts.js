@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./post.css";
-import Post from "./Post";
-import { getAllPosts } from "../helpers.js";
+import Post from "./Post.js";
+import { getAllPosts } from "../helpers.js/index.js";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { PuffLoader } from "react-spinners";
 
