@@ -1,7 +1,6 @@
 const express = require("express");
 const ObjectId = require("mongodb").ObjectId;
 const MongoClient = require("mongodb").MongoClient;
-const MongoClientOptions = require("mongodb").MongoClientOptions;
 
 // const MONGODB_NAME = process.env.MONGODB_NAME | "mongodb";
 // const MONGODB_DATABASE = process.env.MONGODB_DATABASE | "mongodb";
@@ -17,13 +16,16 @@ var uri = `mongodb://${MONGODB_USERNAME}:${MONGODB_PASSWORD}@${MONGODB_NAME}:${M
 
 const router = express.Router();
 
-router.get("/", async (req, res) => {
+router.get("/getallposts", async (req, res) => {
   try {
     let client = await MongoClient.connect(uri);
   
     let collection = client.db().collection("posts");
-    let results = await collection.find().toArray();
-  
+    let findings = await collection.find().toArray();
+    let results = findings.map((item) => {
+      return item.text;
+    }).filter((item) => item != null);
+
     res.send(results).status(200);
       } catch (error) {
     console.log(error)
@@ -31,13 +33,14 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+router.post("/post", async (req, res) => {
   try {
     let client = await MongoClient.connect(uri);
   
     let collection = client.db().collection("posts");
 
     let newDocument = req.body;
+    console.log(req);
     let result = await collection.insertOne(newDocument);
     res.send(result).status(204);
   } catch (error) {
