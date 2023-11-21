@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import './comment.css';
-import { createPost } from "../helpers.js/index.js";
+import { createPost } from "../helpers/index.js";
 
 
 function Comment({isDisabled}) {

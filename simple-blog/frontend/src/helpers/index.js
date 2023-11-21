@@ -1,9 +1,10 @@
 import axios from "axios";
+const REACT_APP_BACKEND_URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:5000";
 
 export const getAllPosts = async () => {
     try {
       const { data } = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/getallpost`);
+        `${REACT_APP_BACKEND_URL}/getallposts`);
       return data;
     } catch (error) {
       return [
@@ -16,9 +17,9 @@ export const getAllPosts = async () => {
   export const createPost = async (text) => {
     try {
       const { data } = await axios.post(
-        `${process.env.REACT_APP_BACKEND_URL}/post`,
+        `${REACT_APP_BACKEND_URL}/post`,
         {
-          text
+          "text": text
         }
       );
       return data;

@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./post.css";
 import Post from "./Post.js";
-import { getAllPosts } from "../helpers.js/index.js";
-import InfiniteScroll from "react-infinite-scroll-component";
+import { getAllPosts } from "../helpers/index.js";
 import { PuffLoader } from "react-spinners";
 
 function Posts() {
     const [posts, setPosts] = useState([]);
-  
-    console.log(posts.length);
-  
+    
     useEffect(() => {
         fetchData();
       }, []); 
