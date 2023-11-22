@@ -1,24 +1,21 @@
 const express = require("express");
-const ObjectId = require("mongodb").ObjectId;
 const MongoClient = require("mongodb").MongoClient;
 
-// const MONGODB_NAME = process.env.MONGODB_NAME | "mongodb";
-// const MONGODB_DATABASE = process.env.MONGODB_DATABASE | "mongodb";
-// const MONGODB_USERNAME = process.env.MONGODB_USERNAME | "admin";
-// const MONGODB_PASSWORD = process.env.MONGODB_PASSWORD | "admin";
-// const MONGODB_PORT = process.env.MONGODB_PORT | 27017;
-const MONGODB_NAME = "localhost";
-const MONGODB_DATABASE = "mongodb";
-const MONGODB_USERNAME = "admin";
-const MONGODB_PASSWORD = "admin";
-const MONGODB_PORT = 27017;
-var uri = `mongodb://${MONGODB_USERNAME}:${MONGODB_PASSWORD}@${MONGODB_NAME}:${MONGODB_PORT}/${MONGODB_DATABASE}?authSource=admin`;
+const getUri = () => {
+  const MONGODB_NAME = process.env.MONGODB_NAME;
+  const MONGODB_DATABASE = process.env.MONGODB_DATABASE;
+  const MONGODB_USERNAME = process.env.MONGODB_USERNAME;
+  const MONGODB_PASSWORD = process.env.MONGODB_PASSWORD;
+  const MONGODB_PORT = process.env.MONGODB_PORT;
+  var uri = `mongodb://${MONGODB_USERNAME}:${MONGODB_PASSWORD}@${MONGODB_NAME}:${MONGODB_PORT}/${MONGODB_DATABASE}?authSource=admin`;
+  return uri;  
+}
 
 const router = express.Router();
 
 router.get("/getallposts", async (req, res) => {
   try {
-    let client = await MongoClient.connect(uri);
+    let client = await MongoClient.connect(getUri());
   
     let collection = client.db().collection("posts");
     let findings = await collection.find().toArray();
@@ -35,7 +32,7 @@ router.get("/getallposts", async (req, res) => {
 
 router.post("/post", async (req, res) => {
   try {
-    let client = await MongoClient.connect(uri);
+    let client = await MongoClient.connect(getUri());
   
     let collection = client.db().collection("posts");
 
