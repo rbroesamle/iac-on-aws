@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./backend
+    image: backend
+    environment:
+      - PORT=4000
+      - MONGODB_NAME=mongodb
+      - MONGODB_DATABASE=posts
+      - MONGODB_USERNAME=admin
+      - MONGODB_PASSWORD=admin
+      - MONGODB_PORT=27017
+    ports:
+      - '4000:4000'
+    depends_on:
+      - mongodb
+    networks:
+      - data-network
+
+  mongodb:
+    image: mongo:6-jammy
+    ports:
+      - '27017:27017'
+    environment:
+      - MONGO_INITDB_DATABASE=posts
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=admin
+    volumes:
+      - dbdata6:/data/db
+    networks:
+      - data-network
+
+volumes:
+  dbdata6:
+
+networks:
+  data-network:
+    driver: bridge
