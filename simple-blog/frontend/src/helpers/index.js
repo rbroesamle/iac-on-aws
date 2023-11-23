@@ -9,6 +9,7 @@ const getUrl = () => {
 export const getAllPosts = async () => {
     try {
       const url = `${getUrl()}/getallposts`;
+      console.log(`Sending GET request to the following url: ${url}`)
       const { data } = await axios.get(url);
       return data;
     } catch (error) {
@@ -22,6 +23,7 @@ export const getAllPosts = async () => {
   export const createPost = async (text) => {
     try {
       const url = `${getUrl()}/post`;
+      console.log(`Sending POST request to the following url: ${url}`)
       const { data } = await axios.post(
         url,
         {
