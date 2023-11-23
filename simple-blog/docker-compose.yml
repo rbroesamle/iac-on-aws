@@ -1,6 +1,17 @@
 version: '3.8'
 
 services:
+  frontend:
+    build: ./frontend
+    image: frontend
+    environment:
+      - PORT=8080
+      - BACKEND_NAME=localhost
+      - BACKEND_PORT=4000
+    ports:
+      - '8080:8080'
+    depends_on:
+      - backend
   backend:
     build: ./backend
     image: backend
@@ -27,12 +38,12 @@ services:
       - MONGO_INITDB_ROOT_USERNAME=admin
       - MONGO_INITDB_ROOT_PASSWORD=admin
     volumes:
-      - dbdata6:/data/db
+      - dbdata:/data/db
     networks:
       - data-network
 
 volumes:
-  dbdata6:
+  dbdata:
 
 networks:
   data-network:
