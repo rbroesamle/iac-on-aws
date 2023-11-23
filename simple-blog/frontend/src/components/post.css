@@ -12,3 +12,7 @@
     padding-left: 1em;
     padding-right: 1em;
 }
+
+.post_loader > * {
+    margin: 0 auto 0 auto;
+}

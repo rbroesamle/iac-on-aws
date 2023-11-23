@@ -6,6 +6,7 @@ import { PuffLoader } from "react-spinners";
 
 function Posts() {
     const [posts, setPosts] = useState([]);
+    const [unset, setUnset] = useState(true);
     
     useEffect(() => {
         fetchData();
@@ -15,7 +16,8 @@ function Posts() {
       try {
         const data = await getAllPosts();
         console.log(data);
-        setPosts(data)
+        setPosts(data);
+        setUnset(false);
       } catch (error) {
         console.log(error);
         throw error;
@@ -24,7 +26,7 @@ function Posts() {
   
     return (
       <div>
-        {posts && posts.length === 0 ? (
+        {posts && posts.length === 0 && unset === true ? (
           <div className="post_loader">
             <PuffLoader color="black" />
           </div>
