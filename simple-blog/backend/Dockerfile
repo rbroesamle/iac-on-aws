@@ -13,6 +13,6 @@ RUN npm install --production
 
 COPY . /src
 
-EXPOSE 500
+EXPOSE ${PORT}
 
 CMD ["node", "index.js"]
