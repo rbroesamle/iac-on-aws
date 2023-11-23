@@ -1,10 +1,15 @@
 import axios from "axios";
-const REACT_APP_BACKEND_URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:5000";
+
+const getUrl = () => {
+  const BACKEND_NAME = process.env.BACKEND_NAME || "localhost";
+  const BACKEND_PORT = process.env.BACKEND_PORT || 4000;
+  return `http://${BACKEND_NAME}:${BACKEND_PORT}`;
+};
 
 export const getAllPosts = async () => {
     try {
-      const { data } = await axios.get(
-        `${REACT_APP_BACKEND_URL}/getallposts`);
+      const url = `${getUrl()}/getallposts`;
+      const { data } = await axios.get(url);
       return data;
     } catch (error) {
       return [
@@ -16,13 +21,14 @@ export const getAllPosts = async () => {
   
   export const createPost = async (text) => {
     try {
+      const url = `${getUrl()}/post`;
       const { data } = await axios.post(
-        `${REACT_APP_BACKEND_URL}/post`,
+        url,
         {
           "text": text
         }
       );
-      return data;
+            return data;
     } catch (error) {
       return error.response.data.message;
     }
