@@ -148,3 +148,17 @@ resource "aws_api_gateway_deployment" "backend_api_gateway_deployment" {
   rest_api_id = "${aws_api_gateway_rest_api.backend_api_gateway.id}"
   stage_name  = "dev"
 }
+
+####
+
+resource "aws_dynamodb_table" "table" {
+ name = "${var.app_name}-dynamodb-table"
+ billing_mode = "PROVISIONED"
+ read_capacity= "30"
+ write_capacity= "30"
+ attribute {
+  name = "post"
+  type = "S"
+ }
+ hash_key = "post"
+}
