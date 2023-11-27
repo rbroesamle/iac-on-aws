@@ -6,6 +6,6 @@ services:
     image: frontend
     environment:
       - PORT=8080
-      - BACKEND_URL=https://fghnrz4uxi.execute-api.eu-west-1.amazonaws.com/dev
+      - REACT_APP_BACKEND_URL=https://fghnrz4uxi.execute-api.eu-west-1.amazonaws.com/dev
     ports:
       - '8080:8080'

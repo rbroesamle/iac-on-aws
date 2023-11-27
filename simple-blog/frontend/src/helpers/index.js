@@ -1,12 +1,10 @@
 import axios from "axios";
 
-const getUrl = () => {
-  return process.env.BACKEND_URL || "https://hq5h2xmv8c.execute-api.eu-west-1.amazonaws.com/dev";
-};
+const baseUrl = process.env.REACT_APP_BACKEND_URL || "localhost:4000";
 
 export const getAllPosts = async () => {
     try {
-      const url = `${getUrl()}/getallposts`;
+      const url = `${baseUrl}/getallposts`;
       console.log(`Sending GET request to the following url: ${url}`)
       const { data } = await axios.get(url);
       return data;
@@ -20,7 +18,7 @@ export const getAllPosts = async () => {
   
   export const createPost = async (text) => {
     try {
-      const url = `${getUrl()}/post`;
+      const url = `${baseUrl}/post`;
       console.log(`Sending POST request to the following url: ${url}`)
       const { data } = await axios.post(
         url,
