@@ -56,6 +56,11 @@ resource "aws_lambda_function" "get_all_posts_handler" {
     runtime = "python3.11"
     handler = "lambda_function.lambda_handler"
     timeout = 10
+    environment {
+        variables = {
+            DYNAMODB_TABLE_NAME = aws_dynamodb_table.table.name
+        }
+    }
 }
 
 
@@ -73,6 +78,11 @@ resource "aws_lambda_function" "post_handler" {
     runtime = "python3.11"
     handler = "lambda_function.lambda_handler"
     timeout = 10
+    environment {
+        variables = {
+            DYNAMODB_TABLE_NAME = aws_dynamodb_table.table.name
+        }
+    }
 }
 
 ####
@@ -126,15 +136,24 @@ resource "aws_api_gateway_integration" "post_api_integration" {
 
   integration_http_method = "POST"
   type                    = "AWS_PROXY"
-  uri                     = "${aws_lambda_function.get_all_posts_handler.invoke_arn}"
+  uri                     = "${aws_lambda_function.post_handler.invoke_arn}"
 }
 
 ####
 
 resource "aws_lambda_permission" "get_all_posts_api_lambda_permission" {
-  statement_id  = "AllowAPIGatewayInvoke"
+  statement_id  = "AllowAPIGatewayInvokeGet"
   action        = "lambda:InvokeFunction"
   function_name = "${aws_lambda_function.get_all_posts_handler.function_name}"
+  principal     = "apigateway.amazonaws.com"
+
+  source_arn = "${aws_api_gateway_rest_api.backend_api_gateway.execution_arn}/*/*"
+}
+
+resource "aws_lambda_permission" "post_api_lambda_permission" {
+  statement_id  = "AllowAPIGatewayInvokePost"
+  action        = "lambda:InvokeFunction"
+  function_name = "${aws_lambda_function.post_handler.function_name}"
   principal     = "apigateway.amazonaws.com"
 
   source_arn = "${aws_api_gateway_rest_api.backend_api_gateway.execution_arn}/*/*"
@@ -143,6 +162,7 @@ resource "aws_lambda_permission" "get_all_posts_api_lambda_permission" {
 resource "aws_api_gateway_deployment" "backend_api_gateway_deployment" {
   depends_on = [
     aws_api_gateway_integration.get_all_posts_api_integration,
+    aws_api_gateway_integration.post_api_integration,
   ]
 
   rest_api_id = "${aws_api_gateway_rest_api.backend_api_gateway.id}"
