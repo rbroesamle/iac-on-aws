@@ -9,9 +9,30 @@ data "aws_iam_policy_document" "lambda_assume_role_policy"{
     }
 }
 
+data "aws_iam_policy_document" "lambda_dynamodb_access_policy_document" {
+  statement {
+    effect    = "Allow"
+    actions   = ["dynamodb:*"]
+    resources = ["*"]
+  }
+}
+
+resource "aws_iam_policy" "lambda_dynamodb_access_policy" {
+  name = "${var.app_name}-lambda-dynamodb-access-policy"
+  description = "A policy containing rights for lambda to access dynamodb."
+  policy = data.aws_iam_policy_document.lambda_dynamodb_access_policy_document.json
+}
+
+
 resource "aws_iam_role" "lambda_role" {  
     name = "${var.app_name}-lambda-role"  
     assume_role_policy = data.aws_iam_policy_document.lambda_assume_role_policy.json
+}
+
+resource "aws_iam_policy_attachment" "lambda_dynamodb_access_policy_attachment" {
+  name = "${var.app_name}-lambda-dynamodb-access-policy-attachment"
+  roles = [ aws_iam_role.lambda_role.name ]
+  policy_arn = aws_iam_policy.lambda_dynamodb_access_policy.arn
 }
 
 locals {
