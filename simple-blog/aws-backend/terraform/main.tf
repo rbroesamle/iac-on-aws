@@ -182,3 +182,25 @@ resource "aws_dynamodb_table" "table" {
  }
  hash_key = "post"
 }
+
+####
+
+module "get_all_posts_cors" {
+  source  = "mewa/apigateway-cors/aws"
+  version = "2.0.1"
+
+  api      = aws_api_gateway_rest_api.backend_api_gateway.id
+  resource = aws_api_gateway_resource.get_all_posts_api_resource.id
+
+  methods = ["GET", "POST"]
+}
+
+module "post_cors" {
+  source  = "mewa/apigateway-cors/aws"
+  version = "2.0.1"
+
+  api      = aws_api_gateway_rest_api.backend_api_gateway.id
+  resource = aws_api_gateway_resource.post_api_resource.id
+
+  methods = ["GET", "POST"]
+}

@@ -1,9 +1,7 @@
 import axios from "axios";
 
 const getUrl = () => {
-  const BACKEND_NAME = process.env.BACKEND_NAME || "localhost";
-  const BACKEND_PORT = process.env.BACKEND_PORT || 4000;
-  return `http://${BACKEND_NAME}:${BACKEND_PORT}`;
+  return process.env.BACKEND_URL || "https://hq5h2xmv8c.execute-api.eu-west-1.amazonaws.com/dev";
 };
 
 export const getAllPosts = async () => {

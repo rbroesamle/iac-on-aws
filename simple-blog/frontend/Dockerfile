@@ -1,8 +1,6 @@
 FROM ubuntu:20.04
 
 ENV PORT=8080
-ENV BACKEND_NAME=""
-ENV BACKEND_PORT=0
 
 RUN apt-get update && apt-get install --no-install-recommends -y \
     software-properties-common \
