@@ -6,8 +6,7 @@ services:
     image: frontend
     environment:
       - PORT=8080
-      - BACKEND_NAME=localhost
-      - BACKEND_PORT=4000
+      - REACT_APP_BACKEND_URL=http://localhost:4000
     ports:
       - '8080:8080'
     depends_on:
