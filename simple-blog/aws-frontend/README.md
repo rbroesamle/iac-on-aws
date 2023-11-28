@@ -14,7 +14,7 @@ Make sure you have the following tools installed:
 
 Make sure that you have an AWS account with sufficient privileges and you are logged into this account in your aws-cli.
 
-Also make sure that the `docker_image_url` in the `terraform/variables.tf` file is pointing to the correct Docker image.
+Also make sure that the `docker_image_url` in the `terraform/variables.tf` file is pointing to the correct frontend Docker image.
 
 Also make sure that you have an account at Docker for uploading your docker image.
 
