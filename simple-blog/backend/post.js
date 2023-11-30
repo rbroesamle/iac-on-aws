@@ -5,7 +5,12 @@ exports.newPost = async (req, res) => {
   try {
     let collection = await db.collection("posts");
     let newDocument = req.body;
-    let result = await collection.insertOne(newDocument);
+    console.log(newDocument);
+    let json = JSON.parse(newDocument);
+    console.log(json);
+    let text = json.text;
+    console.log(text);
+    let result = await collection.insertOne(text);
     res.send(result).status(204);
     } catch (error) {
     console.log(error)
