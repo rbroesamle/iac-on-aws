@@ -9,6 +9,7 @@ export const getAllPosts = async () => {
       const { data } = await axios.get(url);
       return data;
     } catch (error) {
+      console.log(error);
       return [
         "garjfnrvlksdjbgvjsdnvlkj akf ifakljkar jrhfa shrggh asiyu rihg erh  giu hirehg urg apeiu",
         "Test2"
@@ -28,6 +29,7 @@ export const getAllPosts = async () => {
       );
             return data;
     } catch (error) {
+      console.log(error);
       return error.response.data.message;
     }
   };
