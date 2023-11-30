@@ -1,7 +1,7 @@
 FROM ubuntu:20.04
 
 ENV PORT=8080
-ENV REACT_APP_BACKEND_URL="localhost:4000"
+ENV REACT_APP_BACKEND_URL="http://localhost:4000"
 
 RUN apt-get update && apt-get install --no-install-recommends -y \
     software-properties-common \
